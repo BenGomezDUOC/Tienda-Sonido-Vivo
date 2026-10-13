@@ -1,18 +1,18 @@
 /**
- * Header reutilizable de Level-Up Gamer.
- * Proviene del <header> común adaptado para React.
+ * Header reutilizable de Tienda Sonido Vivo.
+ * Venta de productos de audio, equipos y accesorios.
  */
 export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
         <div className="logo">
-          <span className="logo-icon">🚀</span>
+          <span className="logo-icon">🎧</span>
           <span className="logo-text">
-            LEVEL-UP <span className="logo-accent">GAMER</span>
+            SONIDO <span className="logo-accent">VIVO</span>
           </span>
         </div>
-        <p>Equípate con lo mejor del gaming en Chile · DSY1104</p>
+        <p>Venta de equipos de audio profesional, instrumentos y accesorios · DSY1104</p>
       </div>
     </header>
   );

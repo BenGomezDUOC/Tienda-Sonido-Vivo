@@ -1,26 +1,25 @@
 /* ============================================================
-   LEVEL-UP GAMER — Estilos React (Tutorial 01A)
-   Paleta: fondo negro #000000, azul eléctrico #1E90FF,
-   verde neón #39FF14, textos blanco #ffffff y gris #d3d3d3.
-   Fuentes: Orbitron (títulos) y Roboto (cuerpo).
+   TIENDA SONIDO VIVO — Estilos React (Parcial 2 - DSY1104)
+   Paleta: fondo estudio #090d16, acento cyan audio #00c2ff,
+   acento secundario #38bdf8 / #10b981, textos blanco y gris plata.
    ============================================================ */
 
 :root {
-  --bg: #000000;
-  --bg-elevada: #0a0e14;
-  --bg-tarjeta: #111620;
-  --borde: rgba(255, 255, 255, 0.12);
-  --borde-fuerte: rgba(255, 255, 255, 0.22);
-  --azul: #1e90ff;
-  --verde: #39ff14;
+  --bg: #090d16;
+  --bg-elevada: #0f1522;
+  --bg-tarjeta: #131b2c;
+  --borde: rgba(255, 255, 255, 0.1);
+  --borde-fuerte: rgba(255, 255, 255, 0.2);
+  --azul: #00c2ff;
+  --verde: #38bdf8;
   --texto: #ffffff;
-  --texto-secundario: #d3d3d3;
-  --texto-tenue: #8a8f98;
+  --texto-secundario: #cbd5e1;
+  --texto-tenue: #94a3b8;
   --fuente-titulo: "Orbitron", sans-serif;
   --fuente-texto: "Roboto", sans-serif;
   --radio: 12px;
   --radio-sm: 8px;
-  --sombra: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --sombra: 0 8px 24px rgba(0, 0, 0, 0.55);
 }
 
 * {

@@ -1,20 +1,19 @@
 /**
- * Página Admin adaptada a Tutorial 01B.
- * La protección de ruta y lectura de sesión se agregan en Versión 03.
+ * Página Admin — Tienda Sonido Vivo.
+ * Panel de métricas y gestión de catálogo de audio.
  */
 export default function Admin() {
   return (
     <section className="panel">
-      <h2>Panel Administrador — Level-Up Gamer</h2>
+      <h2>Panel Administrador — Tienda Sonido Vivo</h2>
       <p>
-        Por ahora esta página es visible sin autenticación para comprender el
-        flujo de estado de la aplicación.
+        Acceso al resumen operativo de inventario y pedidos de equipos de audio.
       </p>
 
       <div className="admin-grid">
         <article className="kpi">
-          <strong>13</strong>
-          <span>Productos en Catálogo</span>
+          <strong>12</strong>
+          <span>Equipos de Audio Activos</span>
         </article>
 
         <article className="kpi">

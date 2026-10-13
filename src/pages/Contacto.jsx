@@ -1,20 +1,20 @@
 /**
- * Página Contacto adaptada a Tutorial 01B.
- * La funcionalidad completa de validación se perfecciona en Versión 03.
+ * Página Contacto — Tienda Sonido Vivo.
+ * Consultas sobre productos de audio, asesoría técnica y cotizaciones.
  */
 export default function Contacto() {
   return (
     <section className="form-card">
-      <h2>Contacto y Asistencia Gamer</h2>
+      <h2>Contacto y Asesoría en Audio</h2>
       <p>
-        En esta etapa migramos la estructura sin Router. Luego agregaremos
-        estado y validaciones.
+        ¿Tienes dudas sobre compatibilidad de micrófonos, interfaces o requieres
+        cotizar equipamiento para tu estudio o escenario? Escríbenos.
       </p>
 
       <form>
         <div className="form-group">
           <label htmlFor="nombre">Nombre Completo</label>
-          <input id="nombre" type="text" placeholder="Tu nombre" />
+          <input id="nombre" type="text" placeholder="Ej: Camilo Vega" />
         </div>
 
         <div className="form-group">
@@ -23,12 +23,21 @@ export default function Contacto() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="mensaje">Mensaje</label>
-          <textarea id="mensaje" rows="5" placeholder="Escribe tu mensaje..."></textarea>
+          <label htmlFor="telefono">Teléfono / WhatsApp</label>
+          <input id="telefono" type="tel" placeholder="+56 9 1234 5678" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="mensaje">Mensaje o Consulta sobre Equipos</label>
+          <textarea
+            id="mensaje"
+            rows="5"
+            placeholder="Detalla tu consulta técnica, requerimiento o cotización..."
+          ></textarea>
         </div>
 
         <button className="primary" type="button">
-          Enviar Mensaje
+          Enviar Consulta
         </button>
       </form>
     </section>

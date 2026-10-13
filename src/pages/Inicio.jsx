@@ -1,56 +1,56 @@
 /**
- * Página Inicio adaptada a Tutorial 01B.
- * El contenedor <main> ahora es controlado por App.jsx.
+ * Página Inicio de Tienda Sonido Vivo.
+ * Venta de productos de audio, equipos y accesorios.
  */
 export default function Inicio() {
   return (
     <>
       <section className="hero">
-        <span className="hero-eyebrow">🚀 BIENVENIDO A LEVEL-UP GAMER</span>
-        <h2>EQUÍPATE CON LO MEJOR DEL GAMING EN CHILE</h2>
+        <span className="hero-eyebrow">🎵 BIENVENIDO A TIENDA SONIDO VIVO</span>
+        <h2>VIVE LA MÚSICA CON LA MÁXIMA FIDELIDAD Y POTENCIA</h2>
         <p>
-          Desde consolas de última generación y PCs armados hasta juegos de mesa
-          y accesorios de alta precisión. Despachos a todo el país con beneficios
-          exclusivos para la comunidad gamer y estudiantil.
+          Tu tienda especializada en venta de productos de audio, equipos de estudio
+          y accesorios en Chile. Todo lo que necesitas para tu home studio,
+          presentaciones en vivo, podcasting y disfrute audiófilo.
         </p>
         <div className="hero-stats">
           <div className="hero-stat">
-            <strong>20% OFF</strong>
-            <span>Permanente con correo Duoc UC</span>
+            <strong>Hi-Res</strong>
+            <span>Audio de alta fidelidad profesional</span>
           </div>
           <div className="hero-stat">
             <strong>100%</strong>
             <span>Despachos a todo Chile</span>
           </div>
           <div className="hero-stat">
-            <strong>LevelUp PTS</strong>
-            <span>Acumula y canjea premios</span>
+            <strong>Garantía</strong>
+            <span>Soporte y asesoría técnica especializada</span>
           </div>
         </div>
       </section>
 
       <section className="panel">
-        <h2>Objetivo del Proyecto & Gamificación</h2>
+        <h2>Categorías Principales de Audio</h2>
         <p>
-          Separar lo que se repite de lo que cambia entre páginas. En Level-Up
-          Gamer premiamos tu lealtad mediante nuestro sistema de niveles y puntos.
+          Explora nuestra selección de marcas líderes mundiales: Shure, Audio-Technica,
+          Yamaha, Focusrite, Sony y Marshall.
         </p>
         <div className="destacados-preview">
           <div className="destacado-mini">
-            <span>🎮</span>
-            <strong>Consolas & Accesorios</strong>
+            <span>🎧</span>
+            <strong>Audífonos & In-Ears</strong>
           </div>
           <div className="destacado-mini">
-            <span>💻</span>
-            <strong>Computadores Gamers</strong>
+            <span>🎙️</span>
+            <strong>Micrófonos de Estudio</strong>
           </div>
           <div className="destacado-mini">
-            <span>🎲</span>
-            <strong>Juegos de Mesa</strong>
+            <span>🎛️</span>
+            <strong>Interfaces de Grabación</strong>
           </div>
           <div className="destacado-mini">
-            <span>🪑</span>
-            <strong>Sillas Gamers</strong>
+            <span>🔊</span>
+            <strong>Monitores & Parlantes</strong>
           </div>
         </div>
       </section>

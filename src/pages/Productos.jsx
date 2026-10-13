@@ -3,8 +3,8 @@ import ProductoCard from "../components/ProductoCard.jsx";
 import { productos } from "../data/productos.js";
 
 /**
- * Página dinámica de Productos (Tutorial 01B).
- * Utiliza useState para el buscador, useMemo para optimizar el filtrado y map() para renderizar ProductoCard.
+ * Catálogo de Productos — Tienda Sonido Vivo.
+ * Filtrado dinámico por nombre y categoría de audio en tiempo real.
  */
 export default function Productos() {
   const [busqueda, setBusqueda] = useState("");
@@ -21,17 +21,17 @@ export default function Productos() {
   return (
     <>
       <section className="hero">
-        <h2>Catálogo de Productos</h2>
+        <h2>Catálogo de Audio y Sonido</h2>
         <p>
-          El catálogo ahora se representa con componentes y props, consumiendo
-          datos desde productos.js y con filtrado en tiempo real.
+          Explora audífonos profesionales, micrófonos, interfaces de grabación,
+          monitores y accesorios con garantía y asesoría especializada.
         </p>
       </section>
 
       <input
         className="buscador"
         type="search"
-        placeholder="Buscar producto por nombre o categoría..."
+        placeholder="Buscar por equipo o categoría (ej: Shure, Audífonos, Yamaha)..."
         value={busqueda}
         onChange={(event) => setBusqueda(event.target.value)}
       />
@@ -42,8 +42,15 @@ export default function Productos() {
             <ProductoCard key={producto.id} producto={producto} />
           ))
         ) : (
-          <p style={{ gridColumn: "1 / -1", textAlign: "center", padding: "2rem", color: "var(--texto-tenue)" }}>
-            No se encontraron productos que coincidan con "{busqueda}".
+          <p
+            style={{
+              gridColumn: "1 / -1",
+              textAlign: "center",
+              padding: "2rem",
+              color: "var(--texto-tenue)",
+            }}
+          >
+            No se encontraron equipos que coincidan con "{busqueda}".
           </p>
         )}
       </section>

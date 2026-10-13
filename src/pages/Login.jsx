@@ -1,14 +1,14 @@
 /**
- * Página Login adaptada a Tutorial 01B.
- * En esta etapa migramos el formulario a JSX sin Router.
+ * Página Login — Tienda Sonido Vivo.
+ * Acceso administrativo al panel de gestión de audio y catálogo.
  */
 export default function Login() {
   return (
     <section className="form-card">
       <h2>Login Administrador</h2>
       <p>
-        En esta etapa migramos el formulario a JSX interactivo. La
-        autenticación se incorpora en Versión 03.
+        Ingresa tus credenciales para administrar el catálogo de equipos,
+        stock y pedidos de Tienda Sonido Vivo.
       </p>
 
       <form>
@@ -17,7 +17,7 @@ export default function Login() {
           <input
             id="usuario"
             type="text"
-            placeholder="admin o admin@levelupgamer.cl"
+            placeholder="admin o admin@sonidovivo.cl"
           />
         </div>
 
