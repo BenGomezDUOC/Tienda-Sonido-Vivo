@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 
 /**
- * Layout principal de Level-Up Gamer (Tutorial 02).
+ * Layout principal de Tienda Sonido Vivo (Tutorial 02).
  * Proviene del esquema compartido que antes estaba en App.jsx:
  * Header + Navbar + main + Footer.
  *
