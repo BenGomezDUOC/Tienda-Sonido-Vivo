@@ -1,22 +1,27 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ProductoCard from "../components/ProductoCard.jsx";
-import { productos } from "../data/productos.js";
+import { getProductos } from "../services/productosStorage.js";
 
 /**
  * Catálogo de Productos — Tienda Sonido Vivo.
- * Filtrado dinámico por nombre y categoría de audio en tiempo real.
+ * Lee desde el almacenamiento simulado (localStorage) y filtra en tiempo real.
  */
 export default function Productos() {
+  const [listaProductos, setListaProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+
+  useEffect(() => {
+    setListaProductos(getProductos());
+  }, []);
 
   const productosFiltrados = useMemo(() => {
     const texto = busqueda.trim().toLowerCase();
-    return productos.filter(
+    return listaProductos.filter(
       (producto) =>
         producto.nombre.toLowerCase().includes(texto) ||
         producto.categoria.toLowerCase().includes(texto),
     );
-  }, [busqueda]);
+  }, [listaProductos, busqueda]);
 
   return (
     <>
