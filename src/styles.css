@@ -395,6 +395,166 @@ button.primary:hover,
   margin: 0;
 }
 
+/* ---------- Estilos Administrativos (CRUD) ---------- */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--azul);
+  border: 1px solid var(--azul);
+  border-radius: var(--radio-sm);
+  padding: 8px 14px;
+  font-family: var(--fuente-texto);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(0, 194, 255, 0.1);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 24px 0 16px;
+}
+
+.admin-search {
+  max-width: 400px;
+  margin-bottom: 0;
+}
+
+.admin-contador {
+  font-size: 0.85rem;
+  color: var(--texto-tenue);
+}
+
+.admin-contador strong {
+  color: var(--verde);
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  background: var(--bg-elevada);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.admin-table th {
+  background: #0d1422;
+  color: var(--texto-secundario);
+  padding: 14px 16px;
+  font-family: var(--fuente-titulo);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--borde-fuerte);
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.col-id {
+  font-family: monospace;
+  color: var(--texto-tenue);
+  width: 60px;
+}
+
+.col-thumb {
+  width: 70px;
+}
+
+.admin-thumb {
+  width: 50px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #06090e;
+  border: 1px solid var(--borde);
+  display: block;
+}
+
+.col-nombre {
+  color: var(--texto);
+}
+
+.categoria-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--verde);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.col-precio {
+  font-family: var(--fuente-titulo);
+  color: var(--azul);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.col-acciones {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-danger-sm {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--fuente-texto);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger-sm:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+.admin-empty {
+  text-align: center;
+  padding: 32px !important;
+  color: var(--texto-tenue);
+  font-style: italic;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 600px) {
   .site-header {
@@ -407,5 +567,8 @@ button.primary:hover,
   .site-nav button {
     width: 100%;
     text-align: left;
+  }
+  .admin-header {
+    flex-direction: column;
   }
 }
