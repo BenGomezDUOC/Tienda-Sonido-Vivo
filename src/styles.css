@@ -8,18 +8,20 @@
   --bg: #090d16;
   --bg-elevada: #0f1522;
   --bg-tarjeta: #131b2c;
-  --borde: rgba(255, 255, 255, 0.1);
-  --borde-fuerte: rgba(255, 255, 255, 0.2);
-  --azul: #00c2ff;
-  --verde: #38bdf8;
-  --texto: #ffffff;
+  --borde: rgba(255, 255, 255, 0.08);
+  --borde-fuerte: rgba(255, 255, 255, 0.18);
+  --azul: #00c2ff;          /* Cyan Hi-Fi / Audio Studio */
+  --verde: #00e599;         /* Verde señal ecualizador */
+  --ambar: #f59e0b;         /* Ámbar medidor VU */
+  --texto: #f8fafc;
   --texto-secundario: #cbd5e1;
   --texto-tenue: #94a3b8;
-  --fuente-titulo: "Orbitron", sans-serif;
+  --fuente-titulo: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --fuente-texto: "Roboto", sans-serif;
   --radio: 12px;
   --radio-sm: 8px;
-  --sombra: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --radio-md: 14px;
+  --sombra: 0 10px 28px rgba(0, 0, 0, 0.55);
 }
 
 * {
@@ -117,10 +119,10 @@ p {
 .site-nav button:hover,
 .site-nav button.active,
 .site-nav a.active {
-  color: var(--verde);
-  border-color: var(--verde);
-  background: rgba(57, 255, 20, 0.12);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+  color: var(--azul);
+  border-color: var(--azul);
+  background: rgba(0, 194, 255, 0.12);
+  box-shadow: 0 0 12px rgba(0, 194, 255, 0.25);
 }
 
 .buscador {
@@ -140,8 +142,8 @@ p {
 
 .buscador:focus {
   outline: none;
-  border-color: var(--verde);
-  box-shadow: 0 0 12px rgba(57, 255, 20, 0.25);
+  border-color: var(--azul);
+  box-shadow: 0 0 12px rgba(0, 194, 255, 0.25);
 }
 
 /* ---------- Contenedor Principal ---------- */
@@ -163,15 +165,15 @@ p {
 
 .hero {
   margin-bottom: 28px;
-  background: radial-gradient(circle at 10% 20%, rgba(30, 144, 255, 0.15), transparent 40%),
-              radial-gradient(circle at 90% 80%, rgba(57, 255, 20, 0.1), transparent 40%),
+  background: radial-gradient(circle at 10% 20%, rgba(0, 194, 255, 0.12), transparent 45%),
+              radial-gradient(circle at 90% 80%, rgba(0, 229, 153, 0.08), transparent 45%),
               var(--bg-tarjeta);
   border-color: var(--borde-fuerte);
 }
 
 .hero-eyebrow {
   display: inline-block;
-  color: var(--verde);
+  color: var(--azul);
   font-weight: 700;
   font-size: 0.85rem;
   margin-bottom: 0.8rem;
@@ -195,6 +197,7 @@ p {
   display: block;
   font-family: var(--fuente-titulo);
   font-size: 1.5rem;
+  font-weight: 800;
   color: var(--verde);
 }
 
@@ -328,27 +331,29 @@ p {
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--verde);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+  border-color: var(--azul);
+  box-shadow: 0 0 10px rgba(0, 194, 255, 0.25);
 }
 
 button.primary,
 .primary {
-  background: var(--azul);
+  background: linear-gradient(135deg, #00c2ff 0%, #0090ff 100%);
   color: #04101d;
   border: 0;
   border-radius: var(--radio-sm);
   padding: 12px 22px;
-  font-family: var(--fuente-texto);
+  font-family: var(--fuente-titulo);
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 14px rgba(0, 194, 255, 0.25);
+  transition: all 0.2s ease;
 }
 
 button.primary:hover,
 .primary:hover {
-  background: #4da6ff;
+  background: linear-gradient(135deg, #33cdff 0%, #1a9eff 100%);
+  box-shadow: 0 6px 18px rgba(0, 194, 255, 0.4);
   transform: translateY(-1px);
 }
 
@@ -361,18 +366,33 @@ button.primary:hover,
 }
 
 .kpi {
-  background: rgba(30, 144, 255, 0.08);
+  background: rgba(0, 194, 255, 0.05);
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-sm);
   padding: 20px;
   display: grid;
   gap: 4px;
   text-align: center;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.kpi:hover {
+  border-color: var(--azul);
+  transform: translateY(-2px);
 }
 
 .kpi strong {
   font-family: var(--fuente-titulo);
   font-size: 2rem;
+  font-weight: 800;
+  color: var(--azul);
+}
+
+.kpi:nth-child(2) strong {
+  color: var(--ambar);
+}
+
+.kpi:nth-child(3) strong {
   color: var(--verde);
 }
 
