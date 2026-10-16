@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import ProductoFormModal from "../components/ProductoFormModal.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import {
   createProducto,
   deleteProducto,
@@ -13,6 +15,7 @@ import {
  * CRUD Completo con datos simulados (Create, Read, Update, Delete) + KPIs y Buscador.
  */
 export default function Admin() {
+  const { esAdmin, usuario } = useAuth();
   const [listaProductos, setListaProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,6 +108,30 @@ export default function Admin() {
     resetProductos();
     mostrarAlerta("🔄 Catálogo restablecido con los 12 productos base.");
     cargarProductos();
+  }
+
+  // Protección de acceso: Solo administradores
+  if (!esAdmin) {
+    return (
+      <section className="form-card" style={{ textAlign: "center", padding: "40px 24px" }}>
+        <span style={{ fontSize: "3rem", display: "block", marginBottom: "12px" }}>🔒</span>
+        <h2>Acceso Restringido</h2>
+        <p>
+          Esta sección está reservada exclusivamente para el <strong>Administrador de Tienda Sonido Vivo</strong>.
+          {usuario
+            ? ` Has iniciado sesión como cliente (${usuario.email}).`
+            : " No has iniciado sesión en la tienda."}
+        </p>
+        <div style={{ marginTop: "24px", display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
+          <Link to="/login" className="primary" style={{ textDecoration: "none" }}>
+            Iniciar Sesión como Admin
+          </Link>
+          <Link to="/productos" className="btn-outline" style={{ textDecoration: "none" }}>
+            Volver al Catálogo
+          </Link>
+        </div>
+      </section>
+    );
   }
 
   return (

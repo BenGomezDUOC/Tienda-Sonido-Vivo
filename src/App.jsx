@@ -4,23 +4,26 @@ import Inicio from "./pages/Inicio.jsx";
 import Productos from "./pages/Productos.jsx";
 import Contacto from "./pages/Contacto.jsx";
 import Login from "./pages/Login.jsx";
+import Registro from "./pages/Registro.jsx";
 import Admin from "./pages/Admin.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 /**
- * Versión 02 (Tutorial 02).
- * Ya no usamos paginaActual, setPaginaActual ni renderPagina().
- * La URL determina qué página aparece dentro del Layout mediante Routes y Route.
+ * Enrutador principal de Tienda Sonido Vivo con soporte de autenticación global.
  */
 export default function App() {
   return (
-    <Routes>
-      <Route element={<LayoutPrincipal />}>
-        <Route index element={<Inicio />} />
-        <Route path="productos" element={<Productos />} />
-        <Route path="contacto" element={<Contacto />} />
-        <Route path="login" element={<Login />} />
-        <Route path="admin" element={<Admin />} />
-      </Route>
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route element={<LayoutPrincipal />}>
+          <Route index element={<Inicio />} />
+          <Route path="productos" element={<Productos />} />
+          <Route path="contacto" element={<Contacto />} />
+          <Route path="login" element={<Login />} />
+          <Route path="registro" element={<Registro />} />
+          <Route path="admin" element={<Admin />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 }
