@@ -1,12 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useCart } from "../context/CartContext.jsx";
 
 /**
  * Navbar interactivo de Tienda Sonido Vivo.
- * Muestra rutas principales, estado de sesión, rol de administración y badge de beneficio Duoc UC.
+ * Muestra rutas principales, acceso al carrito con contador dinámico,
+ * estado de sesión, rol de administración y badge de beneficio Duoc UC.
  */
 export default function Navbar() {
   const { usuario, logout, esAdmin, tieneDescuentoDuoc } = useAuth();
+  const { totalItems } = useCart();
 
   return (
     <nav className="site-nav">
@@ -20,6 +23,24 @@ export default function Navbar() {
           </NavLink>
           <NavLink to="/contacto">
             Contacto
+          </NavLink>
+          <NavLink to="/carrito" style={{ position: "relative" }}>
+            🛒 Carrito
+            {totalItems > 0 && (
+              <span
+                style={{
+                  marginLeft: "6px",
+                  background: "var(--verde)",
+                  color: "#04101d",
+                  borderRadius: "999px",
+                  padding: "1px 7px",
+                  fontSize: "0.75rem",
+                  fontWeight: 800,
+                }}
+              >
+                {totalItems}
+              </span>
+            )}
           </NavLink>
           {esAdmin && (
             <NavLink to="/admin">
