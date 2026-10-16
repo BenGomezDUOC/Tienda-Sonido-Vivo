@@ -109,7 +109,7 @@ export default function ProductoFormModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="modal-form">
+        <form onSubmit={handleSubmit} className="modal-form" noValidate>
           {error && <div className="modal-error">{error}</div>}
 
           <div className="form-group">
