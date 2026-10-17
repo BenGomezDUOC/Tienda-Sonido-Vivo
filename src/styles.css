@@ -49,10 +49,11 @@ p {
 
 /* ---------- Header ---------- */
 .site-header {
-  background: linear-gradient(135deg, #06090e 0%, #0d1522 100%);
-  border-bottom: 1px solid var(--borde);
-  color: white;
-  padding: 22px 24px;
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+  border-bottom: 2px solid rgba(0, 75, 110, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 180, 216, 0.16);
+  color: #040e1b;
+  padding: 24px 24px;
 }
 
 .header-inner,
@@ -64,30 +65,46 @@ p {
 }
 
 .logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.15rem;
   font-family: var(--fuente-titulo);
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  font-weight: 900;
   letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+.site-header .logo-text {
+  color: #040e1b;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 .logo-img {
-  width: 44px;
-  height: 44px;
+  height: 72px;
+  width: auto;
+  max-width: 180px;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.22));
+  transition: transform 0.2s ease;
 }
 
-.logo-accent {
-  color: var(--verde);
+.logo:hover .logo-img {
+  transform: scale(1.04);
+}
+
+.site-header .logo-accent {
+  color: #01375a;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 .site-header p {
-  margin: 6px 0 0;
-  font-size: 0.95rem;
-  color: var(--texto-tenue);
+  margin: 8px 0 0;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: #061d30;
+  letter-spacing: 0.01em;
 }
 
 /* ---------- Navbar ---------- */
@@ -782,6 +799,15 @@ button.primary:hover,
 @media (max-width: 600px) {
   .site-header {
     padding-inline: 16px;
+    padding-block: 18px;
+  }
+  .logo {
+    gap: 0.75rem;
+    font-size: 1.6rem;
+  }
+  .logo-img {
+    height: 50px;
+    max-width: 125px;
   }
   .nav-inner {
     flex-direction: column;
