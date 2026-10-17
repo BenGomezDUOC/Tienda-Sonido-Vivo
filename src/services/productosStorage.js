@@ -16,7 +16,28 @@ export function getProductos() {
       return [...productosBase];
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : [...productosBase];
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(productosBase));
+      return [...productosBase];
+    }
+
+    // Auto-migración: Si algún producto base aún tiene la ruta .svg placeholder, actualizarlo con la nueva imagen real
+    let huboCambios = false;
+    const actualizados = parsed.map((p) => {
+      const base = productosBase.find((b) => b.id === p.id);
+      if (base && p.imagen && p.imagen.endsWith(".svg") && !base.imagen.endsWith(".svg")) {
+        huboCambios = true;
+        return { ...p, imagen: base.imagen };
+      }
+      return p;
+    });
+
+    if (huboCambios) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(actualizados));
+      return actualizados;
+    }
+
+    return parsed;
   } catch (err) {
     console.error("Error al leer productos desde localStorage:", err);
     return [...productosBase];

@@ -10,19 +10,19 @@ const CATEGORIAS_AUDIO = [
 ];
 
 const IMAGENES_PREDEFINIDAS = [
-  { label: "Audífonos de Estudio", path: "/img/ath-m50x.svg" },
-  { label: "Audífonos In-Ear", path: "/img/shure-se215.svg" },
-  { label: "Audífonos Inalámbricos", path: "/img/sony-wh1000xm5.svg" },
-  { label: "Micrófono Shure SM7B", path: "/img/shure-sm7b.svg" },
-  { label: "Micrófono USB Rode", path: "/img/rode-ntusb.svg" },
-  { label: "Interfaz Scarlett 2i2", path: "/img/scarlett-2i2.svg" },
-  { label: "Monitores Yamaha HS5", path: "/img/yamaha-hs5.svg" },
-  { label: "Parlante Marshall", path: "/img/marshall-acton.svg" },
-  { label: "Controlador MIDI", path: "/img/launchkey-49.svg" },
-  { label: "Consola de Mezcla", path: "/img/behringer-xenyx.svg" },
-  { label: "Tornamesa Hi-Fi", path: "/img/lp120x.svg" },
-  { label: "Cables XLR", path: "/img/cables-xlr.svg" },
-  { label: "Genérico Sonido Vivo", path: "/img/audio-placeholder.svg" },
+  { label: "Audífonos ATH-M50x", path: "/img/Audífonos de Estudio Audio-Technica ATH-M50x.png" },
+  { label: "Audífonos In-Ear Shure SE215", path: "/img/Audífonos In-Ear Profesionales Shure SE215 PRO.avif" },
+  { label: "Audífonos Sony WH-1000XM5", path: "/img/Audífonos Inalámbricos Sony WH-1000XM5.webp" },
+  { label: "Micrófono Shure SM7B", path: "/img/Micrófono Dinámico Vocal Shure SM7B.webp" },
+  { label: "Micrófono USB Rode NT-USB", path: "/img/Micrófono USB Rode NT-USB Mini.jpg" },
+  { label: "Interfaz Scarlett 2i2 4th Gen", path: "/img/Interfaz de Audio Focusrite Scarlett 2i2 4th Gen.jpg" },
+  { label: "Monitores Yamaha HS5", path: "/img/Monitores de Estudio Yamaha HS5 (Par).jpg" },
+  { label: "Parlante Marshall Acton III", path: "/img/Parlante Bluetooth Marshall Acton III.webp" },
+  { label: "Controlador Novation Launchkey 49", path: "/img/Controlador MIDI Novation Launchkey 49 MK3.png" },
+  { label: "Consola Behringer Xenyx Q802", path: "/img/Consola de Mezcla Behringer Xenyx Q802USB.jpg" },
+  { label: "Tornamesa Audio-Technica LP120X", path: "/img/Tornamesa Audio-Technica AT-LP120XUSB.jpg" },
+  { label: "Pack Cables XLR 5m", path: "/img/Pack Cables de Micrófono XLR Macho a Hembra 5m.webp" },
+  { label: "Placeholder Genérico", path: "/img/audio-placeholder.svg" },
 ];
 
 /**
