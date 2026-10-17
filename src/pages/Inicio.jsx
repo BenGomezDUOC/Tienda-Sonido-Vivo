@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 /**
  * Página Inicio de Tienda Sonido Vivo.
- * Venta de productos de audio, equipos y accesorios.
+ * Banner de bienvenida y accesos rápidos a categorías con imágenes reales.
  */
 export default function Inicio() {
   return (
@@ -30,28 +32,75 @@ export default function Inicio() {
       </section>
 
       <section className="panel">
-        <h2>Categorías Principales de Audio</h2>
-        <p>
-          Explora nuestra selección de marcas líderes mundiales: Shure, Audio-Technica,
-          Yamaha, Focusrite, Sony y Marshall.
-        </p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "10px" }}>
+          <div>
+            <h2>Categorías Principales de Audio</h2>
+            <p>
+              Explora nuestra selección de marcas líderes mundiales: Shure, Audio-Technica,
+              Yamaha, Focusrite, Sony y Marshall.
+            </p>
+          </div>
+          <Link to="/productos" className="btn-outline" style={{ textDecoration: "none" }}>
+            Ver Todo el Catálogo →
+          </Link>
+        </div>
+
         <div className="destacados-preview">
-          <div className="destacado-mini">
-            <span>🎧</span>
+          <Link to="/productos" className="destacado-mini">
+            <img
+              src="/img/Audífonos de Estudio Audio-Technica ATH-M50x.png"
+              alt="Audífonos & In-Ears"
+              className="destacado-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/audio-placeholder.svg";
+              }}
+            />
             <strong>Audífonos & In-Ears</strong>
-          </div>
-          <div className="destacado-mini">
-            <span>🎙️</span>
+            <small>Audio-Technica, Shure, Sony</small>
+          </Link>
+
+          <Link to="/productos" className="destacado-mini">
+            <img
+              src="/img/Micrófono Dinámico Vocal Shure SM7B.webp"
+              alt="Micrófonos de Estudio"
+              className="destacado-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/audio-placeholder.svg";
+              }}
+            />
             <strong>Micrófonos de Estudio</strong>
-          </div>
-          <div className="destacado-mini">
-            <span>🎛️</span>
+            <small>Shure SM7B, Rode NT-USB</small>
+          </Link>
+
+          <Link to="/productos" className="destacado-mini">
+            <img
+              src="/img/Interfaz de Audio Focusrite Scarlett 2i2 4th Gen.jpg"
+              alt="Interfaces de Grabación"
+              className="destacado-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/audio-placeholder.svg";
+              }}
+            />
             <strong>Interfaces de Grabación</strong>
-          </div>
-          <div className="destacado-mini">
-            <span>🔊</span>
+            <small>Focusrite Scarlett 2i2 4th Gen</small>
+          </Link>
+
+          <Link to="/productos" className="destacado-mini">
+            <img
+              src="/img/Monitores de Estudio Yamaha HS5 (Par).jpg"
+              alt="Monitores & Parlantes"
+              className="destacado-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/img/audio-placeholder.svg";
+              }}
+            />
             <strong>Monitores & Parlantes</strong>
-          </div>
+            <small>Yamaha HS5, Marshall Acton III</small>
+          </Link>
         </div>
       </section>
     </>

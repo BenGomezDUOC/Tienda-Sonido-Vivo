@@ -1,17 +1,25 @@
+import { Link } from "react-router-dom";
+
 /**
  * Header reutilizable de Tienda Sonido Vivo.
- * Venta de productos de audio, equipos y accesorios.
+ * Logotipo oficial e identidad de marca.
  */
 export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <div className="logo">
-          <span className="logo-icon">🎧</span>
-          <span className="logo-text">
-            SONIDO <span className="logo-accent">VIVO</span>
-          </span>
-        </div>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "inline-block" }}>
+          <div className="logo">
+            <img
+              src="/img/Sonido Vivo.svg"
+              alt="Logo Sonido Vivo"
+              className="logo-img"
+            />
+            <span className="logo-text">
+              SONIDO <span className="logo-accent">VIVO</span>
+            </span>
+          </div>
+        </Link>
         <p>Venta de equipos de audio profesional, instrumentos y accesorios · DSY1104</p>
       </div>
     </header>
