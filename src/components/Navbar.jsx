@@ -78,13 +78,10 @@ export default function Navbar() {
           ) : (
             <>
               <NavLink to="/login">
-                Login
+                Ingresar
               </NavLink>
               <NavLink to="/registro">
-                Registro
-              </NavLink>
-              <NavLink to="/admin" title="Panel de Administración (requiere cuenta admin)">
-                Admin
+                Crear cuenta
               </NavLink>
             </>
           )}
