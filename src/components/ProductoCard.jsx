@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext.jsx";
+import { getPromedioResenas } from "../services/resenasStorage.js";
 
 /**
  * ProductoCard recibe un producto mediante props.
@@ -8,6 +9,7 @@ import { useCart } from "../context/CartContext.jsx";
 export default function ProductoCard({ producto }) {
   const { agregarAlCarrito } = useCart();
   const [agregado, setAgregado] = useState(false);
+  const { promedio } = getPromedioResenas(producto?.id);
 
   function handleAgregar(e) {
     e.preventDefault();
@@ -35,7 +37,15 @@ export default function ProductoCard({ producto }) {
         />
       </a>
       <div className="producto-body">
-        <span className="categoria">{producto.categoria}</span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span className="categoria">{producto.categoria}</span>
+          <span
+            style={{ color: "#fbbf24", fontSize: "0.82rem", fontWeight: 700 }}
+            title={`Calificación: ${promedio.toFixed(1)} de 5 estrellas`}
+          >
+            ★ {promedio.toFixed(1)}
+          </span>
+        </div>
         <a
           href={`/producto/${producto.id}`}
           style={{ textDecoration: "none", color: "inherit" }}

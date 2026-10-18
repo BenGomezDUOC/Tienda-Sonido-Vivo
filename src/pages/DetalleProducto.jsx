@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { getProductoById } from "../services/productosStorage.js";
+import SeccionResenas from "../components/SeccionResenas.jsx";
+import { getPromedioResenas } from "../services/resenasStorage.js";
 
 /**
  * Vista Detalle de Producto — Tienda Sonido Vivo.
@@ -35,6 +37,7 @@ export default function DetalleProducto() {
     ? Math.round(precioUnitario * 0.8)
     : precioUnitario;
   const ahorroUnitario = precioUnitario - precioConDescuento;
+  const { promedio, total } = getPromedioResenas(producto.id);
 
   function handleAgregar() {
     agregarAlCarrito(producto, cantidad);
@@ -98,6 +101,17 @@ export default function DetalleProducto() {
           <h2 style={{ fontSize: "1.8rem", marginBottom: "8px", marginTop: "8px" }}>
             {producto.nombre}
           </h2>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
+            <span className="estrellas-doradas" style={{ fontSize: "1.05rem" }}>
+              {"★".repeat(Math.round(promedio)) + "☆".repeat(5 - Math.round(promedio))}
+            </span>
+            <span style={{ color: "var(--ambar)", fontWeight: 700, fontSize: "0.95rem" }}>
+              {promedio.toFixed(1)}
+            </span>
+            <a href="#opiniones" style={{ color: "var(--azul)", fontSize: "0.85rem", textDecoration: "none" }}>
+              ({total} {total === 1 ? "opinión" : "opiniones"})
+            </a>
+          </div>
           <p style={{ color: "var(--texto-tenue)", fontSize: "0.88rem", marginBottom: "20px" }}>
             Código de Producto: <strong>AUD-{producto.id.toString().padStart(4, "0")}</strong> · En stock disponible
           </p>
@@ -237,6 +251,9 @@ export default function DetalleProducto() {
           </div>
         </div>
       </section>
+
+      {/* Sección de Reseñas, Calificaciones y Comentarios de la Comunidad */}
+      <SeccionResenas productoId={producto.id} nombreProducto={producto.nombre} />
     </>
   );
 }

@@ -106,17 +106,17 @@ export default function Carrito() {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "start" }}>
-        {/* Tabla de Productos en el Carrito */}
-        <div className="admin-table-wrap">
-          <table className="admin-table">
+      <div className="carrito-layout">
+        {/* Tabla de Productos en el Carrito Ampliada */}
+        <div className="carrito-tabla-container">
+          <table className="carrito-tabla">
             <thead>
               <tr>
-                <th>Equipo</th>
-                <th>Precio Unit.</th>
+                <th style={{ width: "38%" }}>Equipo</th>
+                <th style={{ whiteSpace: "nowrap" }}>Precio Unit.</th>
                 <th style={{ textAlign: "center" }}>Cantidad</th>
-                <th>Subtotal</th>
-                <th style={{ textAlign: "center" }}>Quitar</th>
+                <th style={{ whiteSpace: "nowrap" }}>Subtotal</th>
+                <th style={{ textAlign: "center", width: "110px" }}>Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -125,11 +125,12 @@ export default function Carrito() {
                 return (
                   <tr key={id}>
                     <td>
-                      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                         <img
                           src={producto.imagen}
                           alt={producto.nombre}
                           className="admin-thumb"
+                          style={{ width: "56px", height: "46px", flexShrink: 0 }}
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "/img/audio-placeholder.svg";
@@ -148,7 +149,7 @@ export default function Carrito() {
                         </div>
                       </div>
                     </td>
-                    <td style={{ whiteSpace: "nowrap" }}>
+                    <td style={{ whiteSpace: "nowrap", fontWeight: 600 }}>
                       ${Number(producto.precio).toLocaleString("es-CL")}
                     </td>
                     <td>
@@ -167,19 +168,19 @@ export default function Carrito() {
                         <button
                           type="button"
                           className="btn-outline"
-                          style={{ border: "none", padding: "4px 10px", fontSize: "0.95rem" }}
+                          style={{ border: "none", padding: "5px 12px", fontSize: "1rem" }}
                           onClick={() => modificarCantidad(id, cantidad - 1)}
                           title="Restar unidad"
                         >
                           −
                         </button>
-                        <span style={{ minWidth: "26px", textAlign: "center", fontWeight: 700 }}>
+                        <span style={{ minWidth: "30px", textAlign: "center", fontWeight: 700 }}>
                           {cantidad}
                         </span>
                         <button
                           type="button"
                           className="btn-outline"
-                          style={{ border: "none", padding: "4px 10px", fontSize: "0.95rem" }}
+                          style={{ border: "none", padding: "5px 12px", fontSize: "1rem" }}
                           onClick={() => modificarCantidad(id, cantidad + 1)}
                           title="Sumar unidad"
                         >
@@ -187,7 +188,7 @@ export default function Carrito() {
                         </button>
                       </div>
                     </td>
-                    <td style={{ color: "var(--azul)", fontWeight: 700, whiteSpace: "nowrap" }}>
+                    <td style={{ color: "var(--azul)", fontWeight: 700, whiteSpace: "nowrap", fontSize: "1rem" }}>
                       ${itemSubtotal.toLocaleString("es-CL")}
                     </td>
                     <td style={{ textAlign: "center" }}>
@@ -195,10 +196,17 @@ export default function Carrito() {
                         type="button"
                         onClick={() => eliminarDelCarrito(id)}
                         className="btn-danger-sm"
-                        style={{ padding: "4px 8px" }}
-                        title="Eliminar del carrito"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          padding: "6px 12px",
+                          fontSize: "0.82rem",
+                          whiteSpace: "nowrap",
+                        }}
+                        title="Eliminar este equipo del carrito"
                       >
-                        ✕
+                        <span>🗑️</span> Quitar
                       </button>
                     </td>
                   </tr>
