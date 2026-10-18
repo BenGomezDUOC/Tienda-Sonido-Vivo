@@ -1,35 +1,73 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { esCorreoDuoc } from "../services/authStorage.js";
+import { esCorreoDuoc, esMayorDeEdad } from "../services/authStorage.js";
 
 /**
  * Página Registro — Tienda Sonido Vivo.
  * Permite a nuevos clientes registrarse con beneficio de descuento institucional Duoc UC.
+ * Cada campo cuenta con su propio mensaje de error y validación específica.
  */
 export default function Registro() {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errores, setErrores] = useState({});
+  const [errorGeneral, setErrorGeneral] = useState("");
   const { registro } = useAuth();
   const navigate = useNavigate();
 
   const calificaDuoc = esCorreoDuoc(email);
 
+  function validarCampos() {
+    const nuevosErrores = {};
+
+    // 1. Validación de Nombre
+    if (!nombre.trim()) {
+      nuevosErrores.nombre = "El nombre completo es obligatorio.";
+    } else if (nombre.trim().length < 3) {
+      nuevosErrores.nombre = "El nombre debe tener al menos 3 caracteres.";
+    }
+
+    // 2. Validación de Correo
+    const emailNorm = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailNorm) {
+      nuevosErrores.email = "El correo electrónico es obligatorio.";
+    } else if (!emailRegex.test(emailNorm)) {
+      nuevosErrores.email = "Ingresa un formato de correo electrónico válido (ej: nombre@correo.cl).";
+    }
+
+    // 3. Validación de Fecha de Nacimiento
+    if (!fechaNacimiento) {
+      nuevosErrores.fechaNacimiento = "La fecha de nacimiento es obligatoria.";
+    } else if (!esMayorDeEdad(fechaNacimiento)) {
+      nuevosErrores.fechaNacimiento = "Debes ser mayor de 18 años para registrarte en la tienda.";
+    }
+
+    // 4. Validación de Contraseña
+    if (!password.trim()) {
+      nuevosErrores.password = "La contraseña es obligatoria.";
+    } else if (password.length < 4) {
+      nuevosErrores.password = "La contraseña debe tener al menos 4 caracteres.";
+    }
+
+    return nuevosErrores;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!nombre.trim() || !email.trim() || !fechaNacimiento || !password.trim()) {
-      setError("Todos los campos marcados con (*) son obligatorios.");
+    const nuevosErrores = validarCampos();
+    if (Object.keys(nuevosErrores).length > 0) {
+      setErrores(nuevosErrores);
+      setErrorGeneral("");
       return;
     }
 
-    if (password.length < 4) {
-      setError("La contraseña debe tener al menos 4 caracteres.");
-      return;
-    }
+    setErrores({});
+    setErrorGeneral("");
 
     const res = registro({
       nombre,
@@ -39,11 +77,16 @@ export default function Registro() {
     });
 
     if (!res.ok) {
-      setError(res.error);
+      if (res.error && res.error.toLowerCase().includes("correo")) {
+        setErrores({ email: res.error });
+      } else if (res.error && res.error.toLowerCase().includes("18 años")) {
+        setErrores({ fechaNacimiento: res.error });
+      } else {
+        setErrorGeneral(res.error);
+      }
       return;
     }
 
-    setError("");
     navigate("/productos");
   }
 
@@ -56,7 +99,7 @@ export default function Registro() {
       </p>
 
       <form onSubmit={handleSubmit} noValidate>
-        {error && <div className="modal-error" style={{ marginBottom: "16px" }}>{error}</div>}
+        {errorGeneral && <div className="modal-error" style={{ marginBottom: "16px" }}>{errorGeneral}</div>}
 
         <div className="form-group">
           <label htmlFor="reg-nombre">Nombre Completo *</label>
@@ -65,9 +108,14 @@ export default function Registro() {
             type="text"
             placeholder="Ej: Sofía Valenzuela"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            className={errores.nombre ? "input-error" : ""}
+            onChange={(e) => {
+              setNombre(e.target.value);
+              if (errores.nombre) setErrores((prev) => ({ ...prev, nombre: "" }));
+            }}
             autoFocus
           />
+          {errores.nombre && <span className="field-error">{errores.nombre}</span>}
         </div>
 
         <div className="form-group">
@@ -77,8 +125,13 @@ export default function Registro() {
             type="email"
             placeholder="ejemplo@correo.cl o nombre@duocuc.cl"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            className={errores.email ? "input-error" : ""}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (errores.email) setErrores((prev) => ({ ...prev, email: "" }));
+            }}
           />
+          {errores.email && <span className="field-error">{errores.email}</span>}
           {calificaDuoc ? (
             <div
               className="admin-alert"
@@ -87,9 +140,11 @@ export default function Registro() {
               🎓 <strong>¡Beneficio activado!</strong> Tu correo institucional te otorga 20% de descuento permanente.
             </div>
           ) : (
-            <small style={{ color: "var(--texto-tenue)", fontSize: "0.8rem", marginTop: "4px" }}>
-              💡 Alumnos y docentes: usa tu correo institucional (ej: <code>@duocuc.cl</code>) para activar 20% de descuento automático.
-            </small>
+            !errores.email && (
+              <small style={{ color: "var(--texto-tenue)", fontSize: "0.8rem", marginTop: "4px" }}>
+                💡 Alumnos y docentes: usa tu correo institucional (ej: <code>@duocuc.cl</code>) para activar 20% de descuento automático.
+              </small>
+            )
           )}
         </div>
 
@@ -99,8 +154,15 @@ export default function Registro() {
             id="reg-nacimiento"
             type="date"
             value={fechaNacimiento}
-            onChange={(e) => setFechaNacimiento(e.target.value)}
+            className={errores.fechaNacimiento ? "input-error" : ""}
+            onChange={(e) => {
+              setFechaNacimiento(e.target.value);
+              if (errores.fechaNacimiento) setErrores((prev) => ({ ...prev, fechaNacimiento: "" }));
+            }}
           />
+          {errores.fechaNacimiento && (
+            <span className="field-error">{errores.fechaNacimiento}</span>
+          )}
         </div>
 
         <div className="form-group">
@@ -110,8 +172,13 @@ export default function Registro() {
             type="password"
             placeholder="••••••••"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className={errores.password ? "input-error" : ""}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              if (errores.password) setErrores((prev) => ({ ...prev, password: "" }));
+            }}
           />
+          {errores.password && <span className="field-error">{errores.password}</span>}
         </div>
 
         <button className="primary" type="submit" style={{ width: "100%", marginTop: "8px" }}>
