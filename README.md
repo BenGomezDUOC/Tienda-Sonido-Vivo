@@ -14,8 +14,8 @@ Este repositorio contiene el **Frontend (React 18 + Vite)** completamente integr
 
 ## 🔗 Repositorio del Backend
 
-El backend se encuentra alojado en su propio repositorio independiente:
-👉 **[Repositorio Backend Spring Boot — backend-sonidovivo](https://github.com/Solink-dev/backend-sonidovivo)** *(o enlace correspondiente al crearlo en GitHub)*
+El backend se encuentra alojado en su propio repositorio independiente:  
+👉 **[Repositorio Backend Spring Boot — backend-sonido-vivo](https://github.com/BenGomezDUOC/backend-sonido-vivo)**
 
 ---
 
