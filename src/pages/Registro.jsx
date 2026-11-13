@@ -15,6 +15,7 @@ export default function Registro() {
   const [password, setPassword] = useState("");
   const [errores, setErrores] = useState({});
   const [errorGeneral, setErrorGeneral] = useState("");
+  const [enviando, setEnviando] = useState(false);
   const { registro } = useAuth();
   const navigate = useNavigate();
 
@@ -56,7 +57,7 @@ export default function Registro() {
     return nuevosErrores;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const nuevosErrores = validarCampos();
@@ -68,26 +69,33 @@ export default function Registro() {
 
     setErrores({});
     setErrorGeneral("");
+    setEnviando(true);
 
-    const res = registro({
-      nombre,
-      email,
-      fechaNacimiento,
-      password,
-    });
+    try {
+      const res = await registro({
+        nombre,
+        email,
+        fechaNacimiento,
+        password,
+      });
 
-    if (!res.ok) {
-      if (res.error && res.error.toLowerCase().includes("correo")) {
-        setErrores({ email: res.error });
-      } else if (res.error && res.error.toLowerCase().includes("18 años")) {
-        setErrores({ fechaNacimiento: res.error });
-      } else {
-        setErrorGeneral(res.error);
+      if (!res.ok) {
+        if (res.error && res.error.toLowerCase().includes("correo")) {
+          setErrores({ email: res.error });
+        } else if (res.error && res.error.toLowerCase().includes("18 años")) {
+          setErrores({ fechaNacimiento: res.error });
+        } else {
+          setErrorGeneral(res.error);
+        }
+        return;
       }
-      return;
-    }
 
-    navigate("/productos");
+      navigate("/productos");
+    } catch (err) {
+      setErrorGeneral(err.message || "Error al conectar con el servidor.");
+    } finally {
+      setEnviando(false);
+    }
   }
 
   return (

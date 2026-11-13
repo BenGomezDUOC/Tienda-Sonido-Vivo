@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import ProductoFormModal from "../components/ProductoFormModal.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import {
-  createProducto,
-  deleteProducto,
-  getProductos,
-  resetProductos,
-  updateProducto,
-} from "../services/productosStorage.js";
+  createProductoApi,
+  deleteProductoApi,
+  getProductosApi,
+  updateProductoApi,
+} from "../services/productosApi.js";
+import { resetProductos } from "../services/productosStorage.js";
 
 /**
  * Panel de Administración — Tienda Sonido Vivo.
- * CRUD Completo con datos simulados (Create, Read, Update, Delete) + KPIs y Buscador.
+ * CRUD Completo conectado a API REST Spring Boot y base de datos MySQL (XAMPP).
+ * Protegido con JWT y control de acceso (ROLE_ADMIN).
  */
 export default function Admin() {
   const { esAdmin, usuario } = useAuth();
@@ -21,20 +22,29 @@ export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productoAEditar, setProductoAEditar] = useState(null);
   const [alerta, setAlerta] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
     cargarProductos();
   }, []);
 
-  function cargarProductos() {
-    setListaProductos(getProductos());
+  async function cargarProductos() {
+    setCargando(true);
+    try {
+      const data = await getProductosApi();
+      setListaProductos(data);
+    } catch (err) {
+      mostrarAlerta("❌ Error al obtener productos desde Spring Boot.");
+    } finally {
+      setCargando(false);
+    }
   }
 
   function mostrarAlerta(msg) {
     setAlerta(msg);
     setTimeout(() => {
       setAlerta("");
-    }, 3500);
+    }, 4000);
   }
 
   // KPIs calculados en tiempo real
@@ -72,41 +82,49 @@ export default function Admin() {
     setIsModalOpen(true);
   }
 
-  // Guardar (Crear o Actualizar)
-  function handleGuardar(datos) {
-    if (productoAEditar) {
-      updateProducto(productoAEditar.id, datos);
-      mostrarAlerta(`✅ Equipo "${datos.nombre}" actualizado correctamente.`);
-    } else {
-      createProducto(datos);
-      mostrarAlerta(`🎉 Equipo "${datos.nombre}" creado exitosamente.`);
+  // Guardar (Crear o Actualizar) en Spring Boot + MySQL
+  async function handleGuardar(datos) {
+    try {
+      if (productoAEditar) {
+        await updateProductoApi(productoAEditar.id, datos);
+        mostrarAlerta(`✅ Equipo "${datos.nombre}" actualizado en MySQL correctamente.`);
+      } else {
+        await createProductoApi(datos);
+        mostrarAlerta(`🎉 Equipo "${datos.nombre}" creado y persistido en MySQL.`);
+      }
+      setIsModalOpen(false);
+      setProductoAEditar(null);
+      await cargarProductos();
+    } catch (err) {
+      mostrarAlerta(`❌ Error al guardar equipo: ${err.message}`);
     }
-    setIsModalOpen(false);
-    setProductoAEditar(null);
-    cargarProductos();
   }
 
   // Eliminar un producto
-  function handleEliminar(id, nombre) {
+  async function handleEliminar(id, nombre) {
     const confirmar = window.confirm(
-      `¿Confirmas la eliminación del equipo "${nombre}" (ID: ${id})?`,
+      `¿Confirmas la eliminación del equipo "${nombre}" (ID: ${id}) en MySQL?`,
     );
     if (!confirmar) return;
 
-    deleteProducto(id);
-    mostrarAlerta(`🗑️ Equipo "${nombre}" eliminado del catálogo.`);
-    cargarProductos();
+    try {
+      await deleteProductoApi(id);
+      mostrarAlerta(`🗑️ Equipo "${nombre}" eliminado de la base de datos.`);
+      await cargarProductos();
+    } catch (err) {
+      mostrarAlerta(`❌ Error al eliminar equipo: ${err.message}`);
+    }
   }
 
   // Restaurar el catálogo inicial de fábrica
   function handleRestablecer() {
     const confirmar = window.confirm(
-      "¿Deseas restablecer el catálogo con los productos iniciales de Sonido Vivo?",
+      "¿Deseas restablecer el almacenamiento local con los productos iniciales de Sonido Vivo?",
     );
     if (!confirmar) return;
 
     resetProductos();
-    mostrarAlerta("🔄 Catálogo restablecido con los 12 productos base.");
+    mostrarAlerta("🔄 Catálogo local restablecido.");
     cargarProductos();
   }
 
@@ -140,7 +158,7 @@ export default function Admin() {
         <div>
           <h2>Panel Administrador — Tienda Sonido Vivo</h2>
           <p>
-            Gestión completa de inventario de audio (CRUD simulado) y métricas operativas.
+            Gestión completa de inventario persistido en MySQL vía Spring Boot REST API (EP3) y métricas operativas.
           </p>
         </div>
         <div className="admin-header-actions">

@@ -1,23 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
-import { getProductoById } from "../services/productosStorage.js";
+import { getProductoByIdApi } from "../services/productosApi.js";
 import SeccionResenas from "../components/SeccionResenas.jsx";
 import { getPromedioResenas } from "../services/resenasStorage.js";
 
 /**
  * Vista Detalle de Producto — Tienda Sonido Vivo.
- * Ficha técnica de audio, cálculo de descuento Duoc en vivo y selector de unidades.
+ * Ficha técnica de audio conectada a API REST Spring Boot, cálculo de descuento Duoc en vivo y selector de unidades.
  */
 export default function DetalleProducto() {
   const { id } = useParams();
-  const producto = getProductoById(id);
+  const [producto, setProducto] = useState(null);
+  const [cargando, setCargando] = useState(true);
   const { agregarAlCarrito } = useCart();
   const { tieneDescuentoDuoc } = useAuth();
 
   const [cantidad, setCantidad] = useState(1);
   const [agregadoExitoso, setAgregadoExitoso] = useState(false);
+
+  useEffect(() => {
+    async function cargar() {
+      setCargando(true);
+      try {
+        const p = await getProductoByIdApi(id);
+        setProducto(p);
+      } catch (e) {
+        setProducto(null);
+      } finally {
+        setCargando(false);
+      }
+    }
+    cargar();
+  }, [id]);
+
+  if (cargando) {
+    return (
+      <section className="panel" style={{ textAlign: "center", padding: "48px 24px" }}>
+        <p style={{ color: "var(--azul)", fontSize: "1.1rem" }}>⏳ Cargando detalle del equipo desde Spring Boot...</p>
+      </section>
+    );
+  }
 
   if (!producto) {
     return (

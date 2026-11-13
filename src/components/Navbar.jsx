@@ -62,8 +62,8 @@ export default function Navbar() {
                 </span>
               )}
               <span style={{ fontSize: "0.85rem", color: "var(--texto-secundario)", fontWeight: 700 }}>
-                {usuario.rol === "admin" ? "🛡️ " : "👤 "}
-                {usuario.nombre.split(" ")[0]}
+                {esAdmin ? "🛡️ " : "👤 "}
+                {usuario.nombre ? usuario.nombre.split(" ")[0] : "Usuario"}
               </span>
               <button
                 type="button"

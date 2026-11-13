@@ -1,18 +1,27 @@
-# Tienda Sonido Vivo — Proyecto Semestral DSY1104 (Evaluación Parcial 2)
+# Tienda Sonido Vivo — Proyecto Semestral DSY1104 (Evaluación Parcial 3) 🎧
 
 ![Tienda Sonido Vivo](https://img.shields.io/badge/Caso%20B-Tienda%20Sonido%20Vivo-00c2ff?style=for-the-badge)
 ![Duoc UC](https://img.shields.io/badge/Duoc%20UC-Desarrollo%20Full%20Stack%20II-38bdf8?style=for-the-badge&labelColor=090d16)
-![Tecnologías](https://img.shields.io/badge/React%2018-Vite-React%20Router%20v7-blue?style=for-the-badge)
-![Testing](https://img.shields.io/badge/Vitest-React%20Testing%20Library-10%2F10%20Pass-00e599?style=for-the-badge)
-![Localhost](https://img.shields.io/badge/Servidor-localhost%3A5173-blueviolet?style=for-the-badge)
+![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-blue?style=for-the-badge)
+![Backend](https://img.shields.io/badge/Backend-Spring%20Boot%203.3.5-brightgreen?style=for-the-badge)
+![Base de Datos](https://img.shields.io/badge/Persistencia-MySQL%20(XAMPP%20:3307)-orange?style=for-the-badge)
+![Seguridad](https://img.shields.io/badge/Seguridad-Spring%20Security%206%20%2B%20JWT-red?style=for-the-badge)
+![Testing](https://img.shields.io/badge/Testing-16%20Vitest%20%7C%2014%20JUnit-00e599?style=for-the-badge)
 
-Este repositorio contiene la versión interactiva y modular en **React 18 + Vite** desarrollada para la **Evaluación Parcial 2 (EP2)** de la asignatura **Desarrollo Full Stack II (DSY1104)** en Duoc UC, correspondiente al **Contexto B: Tienda Sonido Vivo (Comercialización de equipamiento de audio profesional, instrumentos y accesorios de estudio)**.
+Este repositorio contiene el **Frontend (React 18 + Vite)** completamente integrado con el **Backend (Spring Boot 3 + MySQL)** para la **Evaluación Parcial 3 (EP3)** de la asignatura **Desarrollo Full Stack II (DSY1104)** en Duoc UC.
+
+---
+
+## 🔗 Repositorio del Backend
+
+El backend se encuentra alojado en su propio repositorio independiente:
+👉 **[Repositorio Backend Spring Boot — backend-sonidovivo](https://github.com/Solink-dev/backend-sonidovivo)** *(o enlace correspondiente al crearlo en GitHub)*
 
 ---
 
 ## 🎧 Acerca de Tienda Sonido Vivo
 
-**Tienda Sonido Vivo** es un comercio especializado en la comercialización de equipamiento de audio profesional, instrumentos, grabación para home studio y accesorios de alta fidelidad en Chile.
+**Tienda Sonido Vivo** es un comercio especializado en la comercialización de equipamiento de audio profesional, instrumentos, home studio y accesorios de alta fidelidad en Chile.
 
 - **Misión:** Acercar la más alta fidelidad sonora y equipamiento profesional a músicos, productores, creadores de contenido y amantes del audio en todo Chile.
 - **Visión:** Posicionarse como el referente online en asesoría y distribución de marcas líderes de audio profesional en el país.
@@ -21,120 +30,78 @@ Este repositorio contiene la versión interactiva y modular en **React 18 + Vite
 
 ## 📑 Documentos Oficiales de Entrega
 
-* 📘 **[DOCUMENTO_ERS_EP2.md](./DOCUMENTO_ERS_EP2.md):** Especificación de Requerimientos de Software Versión 2.0 (Requerimientos Funcionales RF01-RF10, No Funcionales RNF01-RNF05, Historias de Usuario con formato Gherkin y Matriz de Trazabilidad).
-* 🧪 **[DOCUMENTO_TESTING_EP2.md](./DOCUMENTO_TESTING_EP2.md):** Estrategia de Testing, configuración de Vitest + React Testing Library + JSDOM y detalle de las **10 pruebas unitarias diversas** (Lógica, Renderizado, Interacciones de Usuario y Spies).
+* 📘 **[DOCUMENTO_INTEGRACION_EP3.md](./DOCUMENTO_INTEGRACION_EP3.md):** Arquitectura cliente-servidor, contratos de endpoints, flujo JWT, mapeo de roles y configuración MySQL.
+* 📗 **[DOCUMENTO_ERS_EP2.md](./DOCUMENTO_ERS_EP2.md):** Especificación de Requerimientos de Software (RF01-RF10, RNF01-RNF05 e Historias de Usuario).
+* 🧪 **[DOCUMENTO_TESTING_EP2.md](./DOCUMENTO_TESTING_EP2.md):** Estrategia de testing unitario y cobertura de componentes.
 
 ---
 
-## 📁 Estructura del Proyecto (Versión React + Vite)
+## 🏛️ Arquitectura Full Stack de la Solución
 
-```text
-tienda-sonido-vivo/
-├── public/
-│   ├── img/                             # 12 fotografías reales de equipos de audio y logotipo oficial
-│   │   ├── Sonido Vivo.svg              # Isotipo oficial vectorizado con viewBox responsivo
-│   │   ├── ath-m50x.webp                # Audífonos Audio-Technica ATH-M50x
-│   │   ├── shure-sm7b.webp              # Micrófono Dinámico Shure SM7B
-│   │   ├── scarlett-2i2.webp            # Interfaz Focusrite Scarlett 2i2
-│   │   ├── yamaha-hs5.webp              # Monitores de Estudio Yamaha HS5
-│   │   ├── marshall-acton.webp          # Parlante Bluetooth Marshall Acton III
-│   │   ├── launchkey-49.webp            # Teclado Controlador Novation Launchkey 49
-│   │   ├── rode-ntusb.webp              # Micrófono de Condensador RØDE NT-USB
-│   │   ├── sony-wh1000xm5.webp          # Audífonos Bluetooth Sony WH-1000XM5
-│   │   ├── behringer-xenyx.webp         # Mezclador Análogo Behringer Xenyx 802S
-│   │   ├── shure-se215.webp             # Monitores In-Ear Shure SE215
-│   │   ├── lp120x.webp                  # Tornamesa Audio-Technica AT-LP120XUSB
-│   │   └── cables-xlr.webp              # Cable XLR Balanceado Mogami 3m
-├── src/
-│   ├── components/
-│   │   ├── Header.jsx                   # Encabezado institucional con identidad de Sonido Vivo
-│   │   ├── Navbar.jsx                   # Barra de navegación con NavLink activo y badge dinámico de carrito
-│   │   ├── Footer.jsx                   # Pie de página institucional
-│   │   ├── ProductoCard.jsx             # Tarjeta reutilizable con props, formateo $ CLP y fallback visual
-│   │   └── ProductoFormModal.jsx        # Modal interactivo para Crear y Editar productos con validaciones
-│   ├── context/
-│   │   ├── AuthContext.jsx              # Estado global de autenticación, sesión y roles (cliente / admin)
-│   │   └── CartContext.jsx              # Estado global del carrito, cantidades, cálculo de totales y persistencia
-│   ├── data/
-│   │   └── productos.js                 # Catálogo base de 12 equipos de audio profesional
-│   ├── layouts/
-│   │   └── LayoutPrincipal.jsx          # Layout compartido con Header, Navbar, <Outlet /> y Footer
-│   ├── pages/
-│   │   ├── Inicio.jsx                   # Hero de bienvenida, estadísticas y categorías de audio con imágenes
-│   │   ├── Productos.jsx                # Catálogo reactivo con buscador en tiempo real (useMemo)
-│   │   ├── DetalleProducto.jsx          # Ficha técnica, selector de cantidad y adición al carrito
-│   │   ├── Carrito.jsx                  # Carrito interactivo con cálculo automático de 20% descuento Duoc
-│   │   ├── Contacto.jsx                 # Formulario de asesoría y cotización técnica con validación JS
-│   │   ├── Login.jsx                    # Inicio de sesión con accesos directos de demostración
-│   │   ├── Registro.jsx                 # Registro de usuarios con validaciones de contraseña y correo único
-│   │   └── Admin.jsx                    # Panel de administración protegido por rol con métricas y CRUD
-│   ├── services/
-│   │   ├── authStorage.js               # Servicio de persistencia y validación de usuarios y sesiones
-│   │   └── productosStorage.js          # Servicio CRUD centralizado con inicialización y reseteo
-│   ├── test/
-│   │   ├── setup.js                     # Configuración de matchers (@testing-library/jest-dom)
-│   │   ├── productosStorage.test.js     # 5 pruebas de lógica de negocio, persistencia, mutación y resiliencia
-│   │   ├── ProductoCard.test.jsx        # 2 pruebas de componentes, renderizado de props y fallback ante error
-│   │   └── ProductoFormModal.test.jsx   # 3 pruebas de validaciones, rangos numéricos, interacciones y Spies
-│   ├── App.jsx                          # Configuración de rutas declarativas con React Router v7
-│   ├── main.jsx                         # Punto de entrada de React con BrowserRouter
-│   └── styles.css                       # Estilos globales y paleta de audio profesional
-├── version-html/                        # Respaldo completo de la versión HTML estática (EV1)
-├── DOCUMENTO_ERS_EP2.md                 # Especificación de Requerimientos de Software v2.0
-├── DOCUMENTO_TESTING_EP2.md             # Matriz y evidencia de las 10 pruebas unitarias
-├── index.html                           # Punto de entrada de Vite SPA
-├── package.json                         # Dependencias (React 18, React Router v7, Vite, Vitest, RTL)
-└── vite.config.js                       # Configuración de compilación con soporte para Vite y Vitest (JSDOM)
+```
+[ FRONTEND :5173 ]               [ BACKEND :8080 ]             [ MYSQL :3307 ]
+  React 18 + Vite                Spring Boot 3.3.5             XAMPP Database
+┌──────────────────┐            ┌──────────────────┐          ┌──────────────┐
+│ • UI Catálogo    │  HTTP/JSON │ • JwtAuthFilter  │   JDBC   │              │
+│ • Panel Admin    │───────────►│ • SecurityConfig │─────────►│ sonidovivo_db│
+│ • JWT en Storage │ (fetch)    │ • AuthController │          │              │
+│ • Carrito + Duoc │◄───────────│ • ProductoContr. │◄─────────│ • usuarios   │
+└──────────────────┘            │ • JPA + Hibernate│          │ • productos  │
+                                └──────────────────┘          └──────────────┘
 ```
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## 👥 Cuentas de Acceso Sembradas en MySQL
 
-1. Abrir la terminal en la raíz del proyecto:
-   ```bash
-   cd "Tienda-Sonido-Vivo"
-   ```
-2. Instalar dependencias:
-   ```bash
-   npm install
-   ```
-3. Iniciar el servidor de desarrollo en Vite:
-   ```bash
-   npm run dev
-   ```
-4. Abrir en el navegador:
-   ```text
-   http://localhost:5173/
-   ```
+| Perfil | Correo Electrónico | Contraseña | Rol Spring | Rol Frontend | Beneficio |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **Administrador** | `admin@sonidovivo.cl` | `duoc123` | `ROLE_ADMIN` | `admin` | Acceso CRUD total a `/admin` |
+| **Cliente Duoc** | `alumno@duocuc.cl` | `duoc123` | `ROLE_CLIENTE` | `cliente` | 20% Descuento automático |
 
 ---
 
-## 🧪 Ejecución de Pruebas Unitarias (Vitest + RTL)
+## 🚀 Cómo Ejecutar la Solución Completa
 
-El proyecto cuenta con **10 pruebas unitarias efectivas** ejecutables mediante los siguientes scripts:
+### Paso 1: Iniciar MySQL en XAMPP
+Asegúrate de que MySQL esté iniciado en el puerto **`3307`** (o el puerto configurado en XAMPP).
 
+### Paso 2: Iniciar el Backend Spring Boot
+Abre una terminal en la carpeta `backend-sonidovivo`:
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+El backend estará disponible en **`http://localhost:8080`**.  
+Documentación Swagger UI: **[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)**.
+
+### Paso 3: Iniciar el Frontend React + Vite
+Abre otra terminal en la carpeta `Tienda Sonido Vivo`:
+```powershell
+npm install
+npm run dev
+```
+La aplicación abrirá en **`http://localhost:5173`**.
+
+---
+
+## 🧪 Pruebas Automatizadas
+
+### Pruebas de Frontend (16 pruebas con Vitest)
 ```bash
-# Ejecutar todas las pruebas una sola vez
 npm test
-
-# Modo interactivo en caliente (watch mode)
-npm run test:watch
-
-# Generar reporte de cobertura de código
-npm run test:coverage
 ```
+- Validaciones de formulario y componentes UI.
+- Lógica de persistencia local y fallback.
+- Integración de cliente HTTP `api.js` y normalización de tokens/roles.
 
----
-
-## 🔒 Credenciales de Acceso Administrativo
-
-Para revisar el funcionamiento del panel protegido `/admin`:
-- **Usuario / Correo:** `admin` (o `admin@sonidovivo.cl`)
-- **Contraseña:** `duoc123`
-- **Rol:** `admin`
-
-> En la vista `/login` se dispone de un botón directo de acceso con un solo clic para facilitar la revisión docente.
+### Pruebas de Backend (14 pruebas con JUnit 5)
+```powershell
+cd ../backend-sonidovivo
+.\mvnw.cmd test
+```
+- Controladores REST (`ProductoControllerTest`, `AuthControllerTest`).
+- Seguridad Spring Security 6 (rechazo 401/403 sin token y autorización de admin).
+- Validaciones de negocio (mayoría de edad $\ge 18$, descuento Duoc).
 
 ---
 
@@ -148,5 +115,5 @@ Todo usuario registrado o compra efectuada con correos institucionales terminado
 
 - **Asignatura:** Desarrollo Full Stack II (DSY1104)
 - **Institución:** Duoc UC
-- **Evaluación:** Evaluación Parcial 2 (EP2) — Semestre 2026
+- **Evaluación:** Evaluación Parcial 3 (EP3) — Semestre 2026
 - **Contexto:** Opción B — Tienda Sonido Vivo (Audio profesional, equipos y accesorios)

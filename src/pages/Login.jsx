@@ -4,59 +4,95 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 /**
  * Página Login — Tienda Sonido Vivo.
- * Autenticación de usuarios clientes y administradores con control de roles.
+ * Autenticación REST con Spring Boot, JWT y control de roles (ROLE_ADMIN / ROLE_CLIENTE).
  */
 export default function Login() {
   const [identificador, setIdentificador] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [enviando, setEnviando] = useState(false);
   const { login, usuario: usuarioActivo, logout } = useAuth();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!identificador.trim() || !password.trim()) {
-      setError("Por favor ingresa usuario/correo y contraseña.");
+      setError("Por favor ingresa tu correo electrónico y contraseña.");
       return;
     }
 
-    const res = login(identificador, password);
-
-    if (!res.ok) {
-      setError(res.error);
-      return;
-    }
-
+    setEnviando(true);
     setError("");
-    if (res.usuario.rol === "admin") {
-      navigate("/admin");
-    } else {
-      navigate("/productos");
+
+    try {
+      const res = await login(identificador, password);
+
+      if (!res.ok) {
+        setError(res.error || "Credenciales incorrectas.");
+        setEnviando(false);
+        return;
+      }
+
+      setError("");
+      const rol = res.usuario.rol?.toLowerCase();
+      if (rol === "admin" || res.usuario.esAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/productos");
+      }
+    } catch (err) {
+      setError(err.message || "Error al conectar con el servidor.");
+    } finally {
+      setEnviando(false);
     }
   }
 
   // Si ya hay sesión iniciada, mostrar tarjeta con opción de cerrar sesión o ir al panel
   if (usuarioActivo) {
+    const esAdmin =
+      usuarioActivo.rol === "admin" ||
+      usuarioActivo.rol === "ROLE_ADMIN" ||
+      usuarioActivo.esAdmin;
+
     return (
       <section className="form-card">
         <h2>Sesión Activa</h2>
-        <div className="admin-alert" style={{ flexDirection: "column", alignItems: "flex-start", gap: "10px" }}>
-          <span>👤 Conectado como: <strong>{usuarioActivo.nombre}</strong> ({usuarioActivo.email})</span>
+        <div
+          className="admin-alert"
+          style={{ flexDirection: "column", alignItems: "flex-start", gap: "10px" }}
+        >
+          <span>
+            👤 Conectado como: <strong>{usuarioActivo.nombre}</strong> ({usuarioActivo.email})
+          </span>
           <span style={{ fontSize: "0.85rem", color: "var(--texto-secundario)" }}>
             Rol: <strong>{usuarioActivo.rol.toUpperCase()}</strong>
-            {usuarioActivo.descuentoDuoc && " · 🎓 20% Descuento Duoc Activo"}
+            {(usuarioActivo.descuentoDuoc || usuarioActivo.esDuoc) &&
+              " · 🎓 20% Descuento Duoc Activo"}
           </span>
           <div style={{ display: "flex", gap: "10px", marginTop: "12px", flexWrap: "wrap" }}>
-            {usuarioActivo.rol === "admin" && (
-              <button type="button" className="primary" onClick={() => navigate("/admin")}>
+            {esAdmin && (
+              <button
+                type="button"
+                className="primary"
+                onClick={() => navigate("/admin")}
+              >
                 Ir al Panel Admin
               </button>
             )}
-            <button type="button" className="btn-outline" onClick={() => navigate("/productos")}>
+            <button
+              type="button"
+              className="btn-outline"
+              onClick={() => navigate("/productos")}
+            >
               Ver Catálogo
             </button>
-            <button type="button" className="btn-danger-sm" onClick={logout} style={{ padding: "8px 14px" }}>
+            <button
+              type="button"
+              className="btn-danger-sm"
+              onClick={logout}
+              style={{ padding: "8px 14px" }}
+            >
               Cerrar Sesión
             </button>
           </div>
@@ -69,7 +105,7 @@ export default function Login() {
     <section className="form-card">
       <h2>Iniciar Sesión en Sonido Vivo</h2>
       <p>
-        Accede a tu cuenta para gestionar pedidos o administrar el inventario de audio.
+        Accede con tu cuenta persistida en MySQL para gestionar pedidos o administrar el inventario.
       </p>
 
       {/* Caja de ayuda para la evaluación / presentación en vivo */}
@@ -85,25 +121,31 @@ export default function Login() {
         }}
       >
         <strong style={{ color: "var(--azul)", display: "block", marginBottom: "4px" }}>
-          🔑 Credenciales para Evaluación:
+          🔑 Credenciales Sembradas en MySQL (EP3):
         </strong>
-        • <strong>Administrador:</strong> usuario <code>admin</code> / contraseña <code>duoc123</code> (acceso al panel CRUD)<br />
-        • <strong>Cliente con Descuento:</strong> Regístrate con cualquier correo <code>@duocuc.cl</code>
+        • <strong>Administrador:</strong> <code>admin@sonidovivo.cl</code> / <code>duoc123</code> (acceso CRUD total)<br />
+        • <strong>Cliente Duoc:</strong> <code>alumno@duocuc.cl</code> / <code>duoc123</code> (20% descuento automático)<br />
+        • O regístrate con tu correo para crear un nuevo usuario en la base de datos.
       </div>
 
       <form onSubmit={handleSubmit} noValidate>
-        {error && <div className="modal-error" style={{ marginBottom: "16px" }}>{error}</div>}
+        {error && (
+          <div className="modal-error" style={{ marginBottom: "16px" }}>
+            {error}
+          </div>
+        )}
 
         <div className="form-group">
-          <label htmlFor="login-id">Usuario o Correo Electrónico *</label>
+          <label htmlFor="login-id">Correo Electrónico *</label>
           <input
             id="login-id"
-            type="text"
-            placeholder="admin o tu.correo@ejemplo.cl"
+            type="email"
+            placeholder="admin@sonidovivo.cl o alumno@duocuc.cl"
             value={identificador}
             onChange={(e) => setIdentificador(e.target.value)}
             autoComplete="username"
             autoFocus
+            disabled={enviando}
           />
         </div>
 
@@ -116,11 +158,17 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
+            disabled={enviando}
           />
         </div>
 
-        <button className="primary" type="submit" style={{ width: "100%", marginTop: "8px" }}>
-          Ingresar
+        <button
+          className="primary"
+          type="submit"
+          style={{ width: "100%", marginTop: "8px" }}
+          disabled={enviando}
+        >
+          {enviando ? "Autenticando..." : "Ingresar con JWT"}
         </button>
 
         <p style={{ textAlign: "center", marginTop: "18px", fontSize: "0.9rem" }}>
