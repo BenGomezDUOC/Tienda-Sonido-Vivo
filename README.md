@@ -39,6 +39,8 @@ El backend desarrollado con Spring Boot 3 y MySQL se encuentra alojado en su pro
 ## 📑 Documentos Oficiales de Entrega
 
 * 📘 **[DOCUMENTO_INTEGRACION_EP3.md](./DOCUMENTO_INTEGRACION_EP3.md):** Arquitectura cliente-servidor, contratos de endpoints, flujo JWT, mapeo de roles y configuración MySQL.
+* 📖 **[MANUAL_USUARIO_EP3.md](./MANUAL_USUARIO_EP3.md):** Manual de usuario detallado con flujos de navegación, registro, carrito, beneficio Duoc y panel CRUD admin.
+* 🎬 **[GUIA_DEFENSA_Y_VIDEO_EP3.md](./GUIA_DEFENSA_Y_VIDEO_EP3.md):** Estructura del video demostrativo obligatorio y respuestas modelo para las 6 áreas de la defensa técnica individual (60%).
 * 📗 **[DOCUMENTO_ERS_EP2.md](./DOCUMENTO_ERS_EP2.md):** Especificación de Requerimientos de Software (RF01-RF10, RNF01-RNF05 e Historias de Usuario).
 * 🧪 **[DOCUMENTO_TESTING_EP2.md](./DOCUMENTO_TESTING_EP2.md):** Estrategia de testing unitario y cobertura de componentes.
 
