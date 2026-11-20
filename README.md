@@ -12,10 +12,18 @@ Este repositorio contiene el **Frontend (React 18 + Vite)** completamente integr
 
 ---
 
-## 🔗 Repositorio del Backend
+## 🔗 Repositorio y Descarga del Backend
 
-El backend se encuentra alojado en su propio repositorio independiente:  
-👉 **[Repositorio Backend Spring Boot — backend-sonido-vivo](https://github.com/BenGomezDUOC/backend-sonido-vivo)**
+El backend desarrollado con Spring Boot 3 y MySQL se encuentra alojado en su propio repositorio independiente:  
+
+* 🌐 **Ver Repositorio en GitHub:** [https://github.com/BenGomezDUOC/backend-sonido-vivo](https://github.com/BenGomezDUOC/backend-sonido-vivo)
+* 📦 **Descarga Directa del Código (ZIP):** [Descargar backend-sonido-vivo.zip](https://github.com/BenGomezDUOC/backend-sonido-vivo/archive/refs/heads/main.zip)
+* 💻 **Clonar vía Git CLI:**
+  ```bash
+  git clone https://github.com/BenGomezDUOC/backend-sonido-vivo.git
+  ```
+
+> **Nota:** Para ejecutar el sistema completo, se requiere tener ambos proyectos corriendo en simultáneo (Frontend en el puerto `5173` y Backend en el puerto `8080` con MySQL en el puerto `3307`). Más abajo se detallan los pasos de puesta en marcha.
 
 ---
 
