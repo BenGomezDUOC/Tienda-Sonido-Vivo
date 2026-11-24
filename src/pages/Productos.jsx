@@ -59,7 +59,7 @@ export default function Productos() {
 
       {cargando ? (
         <div style={{ textAlign: "center", padding: "3rem", color: "var(--azul)" }}>
-          <p style={{ fontSize: "1.1rem" }}>⏳ Cargando catálogo desde Spring Boot API REST...</p>
+          <p style={{ fontSize: "1.1rem" }}>⏳ Cargando catálogo...</p>
         </div>
       ) : error ? (
         <div className="modal-error" style={{ textAlign: "center", margin: "2rem auto", maxWidth: "500px" }}>
