@@ -1,6 +1,6 @@
 /**
  * Catálogo oficial de Tienda Sonido Vivo.
- * Venta de productos de audio, equipos y accesorios.
+ * Venta de productos de audio profesional, equipos y accesorios.
  */
 export const productos = [
   {
@@ -12,10 +12,10 @@ export const productos = [
   },
   {
     id: 2,
-    nombre: "Micrófono Dinámico Vocal Shure SM7B",
-    precio: 429990,
+    nombre: "Shure SM7B - Edición 50 Aniversario",
+    precio: 459990,
     categoria: "Micrófonos",
-    imagen: "/img/Micrófono Dinámico Vocal Shure SM7B.webp",
+    imagen: "/img/Shure SM7B - Edición 50 Aniversario.png",
   },
   {
     id: 3,

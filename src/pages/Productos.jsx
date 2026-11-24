@@ -45,7 +45,7 @@ export default function Productos() {
         <h2>Catálogo de Audio y Sonido</h2>
         <p>
           Explora audífonos profesionales, micrófonos, interfaces de grabación,
-          monitores y accesorios con persistencia en MySQL y API REST Spring Boot.
+          monitores y accesorios con la más alta calidad de audio de Chile.
         </p>
       </section>
 
